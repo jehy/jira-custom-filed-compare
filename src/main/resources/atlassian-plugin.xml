@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<atlassian-plugin key="${project.groupId}.${project.artifactId}" name="${project.name}" plugins-version="2">
+  <plugin-info>
+    <description>${project.description}</description>
+    <version>${project.version}</version>
+    <vendor name="${project.organization.name}" url="${project.organization.url}"/>
+    <param name="plugin-icon">images/pluginIcon.png</param>
+    <param name="plugin-logo">images/pluginLogo.png</param>
+  </plugin-info>
+  <!-- add our i18n resource -->
+  <resource type="i18n" name="i18n" location="resolution-validator"/>
+  <!-- add our web resources -->
+  <web-resource key="resolution-validator-resources" name="resolution-validator Web Resources">
+    <dependency>com.atlassian.auiplugin:ajs</dependency>
+    <resource type="download" name="resolution-validator.css" location="/css/resolution-validator.css"/>
+    <resource type="download" name="resolution-validator.js" location="/js/resolution-validator.js"/>
+    <resource type="download" name="images/" location="/images"/>
+    <context>resolution-validator</context>
+  </web-resource>
+  <!-- publish our component 
+  <component key="myPluginComponent" class="com.sma.plugins.MyPluginComponentImpl" public="true">
+    <interface>com.sma.plugins.MyPluginComponent</interface>
+  </component>-->
+  <!-- import from the product container -->
+  <component-import key="applicationProperties" interface="com.atlassian.sal.api.ApplicationProperties"/>
+  <workflow-validator key="resolution-_validator" name="resolution _validator" i18n-name-key="resolution-_validator.name" class="com.sma.plugins.jira.workflow.resolution_validatorFactory">
+    <description key="resolution-_validator.description">The resolution validator Plugin. Resolution should not stay same.</description>
+    <validator-class>com.sma.plugins.jira.workflow.resolution_validator</validator-class>
+    <resource type="velocity" name="view" location="templates/validators/resolution-_validator.vm"/>
+    <!-- <resource type="velocity" name="input-parameters" location="templates/validators/resolution-_validator-input.vm"/>
+    <resource type="velocity" name="edit-parameters" location="templates/validators/resolution-_validator-input.vm"/> -->
+  </workflow-validator>
+</atlassian-plugin>
